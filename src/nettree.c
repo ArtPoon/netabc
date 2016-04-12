@@ -240,10 +240,10 @@ int main (int argc, char **argv)
         // reject until we get a tree with enough nodes
         // we already checked for a sufficiently large connected component,
         // so this should succeed eventually
-        simulate_phylogeny(tree, &net, rng, opts.sim_time, opts.sim_nodes, numeric_ids);
+        simulate_tree_on_graph(tree, &net, rng, opts.sim_time, opts.sim_nodes, numeric_ids);
         while (igraph_vcount(tree) < opts.ntip) {
             igraph_destroy(tree);
-            simulate_phylogeny(tree, &net, rng, opts.sim_time, opts.sim_nodes, numeric_ids);
+            simulate_tree_on_graph(tree, &net, rng, opts.sim_time, opts.sim_nodes, numeric_ids);
         }
 
         // post-process the tree

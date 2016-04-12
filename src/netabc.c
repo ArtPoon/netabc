@@ -260,7 +260,7 @@ struct prior_data *read_priors(FILE *f, net_type net)
     }
 
     if (f == NULL) {
-        return;
+        return pdata;
     }
 
     yaml_parser_initialize(&parser);
@@ -505,7 +505,7 @@ void sample_dataset(gsl_rng *rng, const double *theta, const void *arg, void *X)
     igraph_vector_fill(&v, theta[UNIVERSAL_TRANSMIT_RATE]);
     SETEANV(&net, "transmit", &v);
     
-    simulate_phylogeny(tree, &net, rng, theta[UNIVERSAL_TIME], theta[UNIVERSAL_I], 1);
+    simulate_tree_on_graph(tree, &net, rng, theta[UNIVERSAL_TIME], theta[UNIVERSAL_I], 1);
     i = 0;
     while (igraph_vcount(tree) < (ntip - 1) / 2) {
         if (i == 20) {
@@ -514,7 +514,7 @@ void sample_dataset(gsl_rng *rng, const double *theta, const void *arg, void *X)
             break;
         }
         igraph_destroy(tree);
-        simulate_phylogeny(tree, &net, rng, theta[UNIVERSAL_TIME], theta[UNIVERSAL_I], 1);
+        simulate_tree_on_graph(tree, &net, rng, theta[UNIVERSAL_TIME], theta[UNIVERSAL_I], 1);
         ++i;
     }
 

@@ -10,7 +10,7 @@
 
 #include "../igraph/include/igraph.h"
 
-/** Simulate a phylogenetic tree from a contact network.
+/** Simulate a transmission tree from a contact network.
  *
  * This uses a simple algorithm. Let R be the sum of the rates of all
  * sero-discordant edges in the network, that is, edges where one endpoint is
@@ -48,9 +48,29 @@
  * \param[in] stop_nodes maximum number of nodes to infect, <= 0 means no limit
  * \param[in] numeric_ids 1 if the "id" attribute of the network is numeric
  * \param[in] tree an uninitialized igraph_t object
- * \return a phylogeny simulated over the contact network
+ * \return a transmission tree simulated over the contact network
  */
-void simulate_phylogeny(igraph_t *tree, igraph_t *net, gsl_rng *rng, double
+void simulate_tree_on_graph(igraph_t *tree, igraph_t *net, gsl_rng *rng, double
         stop_time, int stop_nodes, int numeric_ids);
+
+
+/** Simulate a transmission tree
+ *
+ * \param[in] tree: an uninitialized igraph_t object
+ * \param[in] times: vector of time points in the numerical solution of ODE, in descending order
+ * \param[in] Fs: matrices of birth rates F_ij, lineage i generates another of type j
+ */
+
+void simulate_tree_on_ode(
+    igraph_t *tree,
+    double * times,
+    double ** Fs,
+    double ** Gs,
+    double ** Ys,
+    double ** As,
+);
+
+
+
 
 #endif

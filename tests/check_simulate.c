@@ -56,7 +56,7 @@ START_TEST (test_simulate_chain)
     {
         SETEAN(&net, "transmit", i, 1);
     }
-    simulate_phylogeny(&tree, &net, rng, 100, 100, 0);
+    simulate_tree_on_graph(&tree, &net, rng, 100, 100, 0);
 
     ck_assert_int_eq(igraph_vcount(&tree), 9);
     ck_assert_int_eq(igraph_ecount(&tree), 8);
